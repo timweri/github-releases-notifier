@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
-	githubql "github.com/shurcooL/githubql"
+	githubql "github.com/shurcooL/githubv4"
 )
 
 // Checker has a githubql client to run queries and also knows about
@@ -40,6 +40,7 @@ func (c *Checker) Run(interval time.Duration, repositories []string, releases ch
 				)
 				continue
 			}
+			fmt.Printf("%+v\n", nextRepo)
 
 			// For debugging uncomment this next line
 			//releases <- nextRepo
@@ -89,7 +90,7 @@ func (c *Checker) query(owner, name string) (Repository, error) {
 						PublishedAt githubql.DateTime
 					}
 				}
-			} `graphql:"releases(last: 1)"`
+			} `graphql:"releases(last: 1, orderBy: { field: CREATED_AT, direction: ASC})"`
 		} `graphql:"repository(owner: $owner, name: $name)"`
 	}
 

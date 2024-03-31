@@ -1,12 +1,22 @@
-module github.com/marthjod/github-releases-notifier
+module github.com/timweri/github-releases-notifier
 
-go 1.14
+go 1.21
 
 require (
-	github.com/alexflint/go-arg v1.3.0
-	github.com/go-kit/kit v0.10.0
-	github.com/joho/godotenv v1.3.0
-	github.com/shurcooL/githubql v0.0.0-20191127044304-8f68eb5628d0
-	github.com/shurcooL/graphql v0.0.0-20181231061246-d48a9a75455f // indirect
-	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
+	github.com/alexflint/go-arg v1.4.3
+	github.com/go-kit/kit v0.13.0
+	github.com/joho/godotenv v1.5.1
+	github.com/shurcooL/githubv4 v0.0.0-20240120211514-18a1ae0e79dc
+	golang.org/x/oauth2 v0.18.0
+)
+
+require (
+	github.com/alexflint/go-scalar v1.1.0 // indirect
+	github.com/go-kit/log v0.2.0 // indirect
+	github.com/go-logfmt/logfmt v0.5.1 // indirect
+	github.com/golang/protobuf v1.5.3 // indirect
+	github.com/shurcooL/graphql v0.0.0-20230722043721-ed46e5a46466 // indirect
+	golang.org/x/net v0.22.0 // indirect
+	google.golang.org/appengine v1.6.7 // indirect
+	google.golang.org/protobuf v1.31.0 // indirect
 )
