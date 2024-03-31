@@ -30,7 +30,7 @@ func (c *Checker) Run(interval time.Duration, repositories []string, releases ch
 			s := strings.Split(repoName, "/")
 			owner, name := s[0], s[1]
 
-			nextRepo, err := c.query(owner, name)
+			repoNext, err := c.query(owner, name)
 			if err != nil {
 				level.Warn(c.logger).Log(
 					"msg", "failed to query the repository's releases",
@@ -40,23 +40,19 @@ func (c *Checker) Run(interval time.Duration, repositories []string, releases ch
 				)
 				continue
 			}
-			fmt.Printf("%+v\n", nextRepo)
 
-			// For debugging uncomment this next line
-			//releases <- nextRepo
-
-			currRepo, ok := c.releases[repoName]
+			repoCurr, ok := c.releases[repoName]
 
 			// We've queried the repository for the first time.
 			// Saving the current state to compare with the next iteration.
 			if !ok {
-				c.releases[repoName] = nextRepo
+				c.releases[repoName] = repoNext
 				continue
 			}
 
-			if nextRepo.Release.PublishedAt.After(currRepo.Release.PublishedAt) {
-				releases <- nextRepo
-				c.releases[repoName] = nextRepo
+			if repoNext.Release.PublishedAt.After(repoCurr.Release.PublishedAt) {
+				releases <- repoNext
+				c.releases[repoName] = repoNext
 			} else {
 				level.Debug(c.logger).Log(
 					"msg", "no new release for repository",
