@@ -20,7 +20,7 @@ spec:
         runAsUser: 1000
       containers:
       - name: github-releases-notifier
-        image: justwatch/github-releases-notifier
+        image: justwatchcom/github-releases-notifier
         env:
         - name: GITHUB_TOKEN
           valueFrom:
