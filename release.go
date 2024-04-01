@@ -8,16 +8,17 @@ import (
 
 // Release of a repository tagged via GitHub.
 type Release struct {
-	ID          string
-	Name        string
-	Description string
-	URL         url.URL
-	PublishedAt time.Time
+	ID           string
+	Name         string
+	Description  string
+	URL          url.URL
+	PublishedAt  time.Time
+	IsPrerelease bool
 }
 
 // IsReleaseCandidate returns true if the release name hints at an RC release.
 func (r Release) IsReleaseCandidate() bool {
-	return strings.Contains(strings.ToLower(r.Name), "-rc")
+	return r.IsPrerelease
 }
 
 // IsBeta returns true if the release name hints at a beta version release.

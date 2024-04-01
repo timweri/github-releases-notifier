@@ -79,11 +79,12 @@ func (c *Checker) query(owner, name string) (Repository, error) {
 			Releases struct {
 				Edges []struct {
 					Node struct {
-						ID          githubql.ID
-						Name        githubql.String
-						Description githubql.String
-						URL         githubql.URI
-						PublishedAt githubql.DateTime
+						ID           githubql.ID
+						Name         githubql.String
+						Description  githubql.String
+						URL          githubql.URI
+						PublishedAt  githubql.DateTime
+						IsPrerelease githubql.Boolean
 					}
 				}
 			} `graphql:"releases(last: 1, orderBy: { field: CREATED_AT, direction: ASC})"`
@@ -129,6 +130,7 @@ func (c *Checker) query(owner, name string) (Repository, error) {
 			Description: string(latestRelease.Description),
 			URL:         *latestRelease.URL.URL,
 			PublishedAt: latestRelease.PublishedAt.Time,
+			IsPrerelease: bool(latestRelease.IsPrerelease),
 		},
 	}, nil
 }
